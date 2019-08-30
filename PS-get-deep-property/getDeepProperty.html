@@ -8,12 +8,13 @@
         // See if there is more to the path 
         if (path.indexOf('.') >= 0) {
 
-            var pathParts = path.split(".");
+            // Get the first part of the path.
+            var pathPart1 = path.substr(0, path.indexOf('.'));
 
             // If this segment of the path is undefined, let the user know.  
             // Otherwise, send this portion of the object branch and path back to this very function.
-            return obj[pathParts[0].toString()] === undefined ? "undefined at " + pathParts[0].toString(): 
-            getDeepProperty(obj[pathParts[0].toString()], path.substring(path.indexOf(".") + 1));
+            return obj[pathPart1] === undefined ? "undefined at " + pathPart1: 
+            getDeepProperty(obj[pathPart1], path.substring(path.indexOf(".") + 1));
 
         } else {
             // We are at the end of the path. Return the value if it exists, where the path failed if not.
@@ -22,7 +23,7 @@
     }
 
     // Define the object that will be searched by the user.
-    const someObj = {person: {name: {firstName: 'FirstName', middleInitial: 'I', lastName: 'LastName'}}};
+    const someObj = {person: {name: {firstName: 'Bubba', middleInitial: 'B', lastName: 'Bowlin'}}};
     
 </script>
 </head>
