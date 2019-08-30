@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>David Hicks - Get Deep Property</title>
+<script>
+    //Define a recursive function that traverses an object until it gets to the end of the given path if possible.
+    function getDeepProperty(obj, path) {
+        // See if there is more to the path 
+        if (path.indexOf('.') >= 0) {
+
+            var pathParts = path.split(".");
+
+            // If this segment of the path is undefined, let the user know.  
+            // Otherwise, send this portion of the object branch and path back to this very function.
+            return obj[pathParts[0].toString()] === undefined ? "undefined at " + pathParts[0].toString(): 
+            getDeepProperty(obj[pathParts[0].toString()], path.substring(path.indexOf(".") + 1));
+
+        } else {
+            // We are at the end of the path. Return the value if it exists, where the path failed if not.
+            return obj[path] === undefined ? "undefined at " + path: obj[path];
+        }
+    }
+
+    // Define the object that will be searched by the user.
+    const someObj = {person: {name: {firstName: 'FirstName', middleInitial: 'I', lastName: 'LastName'}}};
+    
+</script>
+</head>
+<body>
+
+<p>Enter the object path separated by periods:</p>
+<p><input type="text" id="txtPath" /></p>
+<button onclick="document.getElementById('spanValue').innerHTML = getDeepProperty(someObj, txtPath.value)">Find Value</button>
+
+<p>Value: <span id="spanValue">----</span></p>
+
+</body>
+</html>

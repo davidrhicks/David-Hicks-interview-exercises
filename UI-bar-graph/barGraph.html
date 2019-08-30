@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>David Hicks - Bar Graph</title>
+</head>
+<body>
+
+<canvas id="barChart" onload="drawBars();"></canvas>
+
+<script>
+        //function for drawing bars (the graph kind, not the alcoholic kind)
+        function drawBars(heights, maxHeight, barWidth) {
+            // Return if there is nothing to draw.
+            if (heights.length < 1) return;
+
+            //Create a list of colors to use to fill the bars
+            const barColors = ["maroon","red","olive","yellow","green","lime","teal","aqua",
+                            "navy","blue","purple","fuchsia","black","silver","gray"];
+
+            //Get the canvas and set its limits
+            var barChart = document.getElementById("barChart");
+            barChart.width = jsonData.data.length * barWidth;
+            barChart.height = maxHeight;
+        
+            // Get the context for drawing
+            var ctx = barChart.getContext("2d");
+
+            // Loop to draw the bars
+            var x, y, h; // x and y as in (x,y) coordinates. h is for height.
+            x = 0;
+            for (var z = 0; z < heights.length; z++) {
+                h = heights[z];
+                y = maxHeight - h;
+
+                ctx.beginPath();
+                ctx.rect(x, y, barWidth, h);  //A rectangle whose upper left-corner is (x,y), with width barWidth and height h.
+                ctx.fillStyle = barColors[z % barColors.length]; //Using modulus in case there are more bars than colors.
+                ctx.fill();
+
+                x += barWidth;
+            }
+        } // end function drawBars
+
+        //Date representing the height of the bars. Comes from data.json.
+        var jsonData = {
+                        "data": [
+                            49, 8, 23, 57, 94, 78, 94, 54, 75, 63
+                            ]
+                       };
+
+        drawBars(jsonData.data, 100, 40);            
+        
+</script>
+
+</body>
+</html>
